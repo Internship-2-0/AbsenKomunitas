@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "797568836161",
+    "project_id": "absen-komunitas-52c8c",
+    "storage_bucket": "absen-komunitas-52c8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797568836161:android:b15d18fbf9db147922dcc0",
+        "android_client_info": {
+          "package_name": "com.example.absenkomunitas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797568836161-qa2ikpliidroqsdu8r68btm485eahvt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT88U4YchrYfrJN_oB_jpglRi1w8oLoL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797568836161-qa2ikpliidroqsdu8r68btm485eahvt9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,38 +17,59 @@
         android:layout_height="wrap_content">
         <EditText
             android:drawableLeft="@drawable/ic_username"
+            android:drawablePadding="10dp"
             android:layout_marginLeft="5dp"
-            android:id="@+id/txt_username"
+            android:id="@+id/txtEmail"
             android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"/>
+            android:hint="Email"/>
         <View
-            android:id="@+id/v_separator"
-            android:layout_below="@+id/txt_username"
+            android:id="@+id/vSeparator"
+            android:layout_below="@+id/txtEmail"
             android:background="@color/grey"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"/>
         <EditText
-            android:drawableLeft="@drawable/ic_password"
+            android:id="@+id/txtNama"
+            android:drawableLeft="@drawable/ic_nama"
+            android:drawablePadding="10dp"
             android:layout_marginLeft="5dp"
             android:backgroundTint="@color/white"
-            android:layout_below="@+id/v_separator"
+            android:layout_below="@+id/vSeparator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Nama"/>
+        <View
+            android:id="@+id/vSeparator1"
+            android:layout_below="@+id/txtNama"
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <EditText
+            android:id="@+id/txtPassword"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="@color/white"
+            android:layout_below="@+id/vSeparator1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:password="true"
             android:hint="********"/>
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_login"
+        android:src="@drawable/ic_check"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"/>
 
     <TextView
-        android:text="Login"
+        android:text="Register"
         android:textStyle="bold"
         android:textSize="40dp"
         android:layout_centerHorizontal="true"
@@ -58,13 +79,15 @@
         android:layout_above="@+id/v_input"/>
 
     <Button
-        android:layout_below="@+id/v_input"
+        android:id="@+id/btnLogin"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="180dp"
         android:layout_marginTop="50dp"
         android:textAllCaps="false"
-        android:text="Register"
+        android:text="Login"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle"
+        android:background="@drawable/shape_rectangle"/>
 
 </RelativeLayout>

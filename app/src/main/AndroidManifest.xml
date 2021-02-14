@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"/>
+        <activity android:name=".admin.mainAdminActivity"/>
+        <activity android:name=".user.mainUserActivity"/>
     </application>
 
 </manifest>

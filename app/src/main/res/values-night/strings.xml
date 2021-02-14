@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="email">Email</string>
-    <string name="password">********</string>
-    <string name="register">Register</string>
-    <string name="email">Email</string>
     <string name="nama">Nama</string>
     <string name="password">********</string>
     <string name="todo">TODO</string>

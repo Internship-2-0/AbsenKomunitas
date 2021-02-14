@@ -12,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.absenkomunitas.admin.mainAdminActivity;
 import com.example.absenkomunitas.model.modelLogin;
+import com.example.absenkomunitas.user.mainUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -79,18 +81,28 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()) {
                                                     DocumentSnapshot document = task.getResult();
                                                     if (document.exists()) {
-                                                        Log.d(TAG, "DocumentSnapshot data: " + document.getString("nama"));
+                                                        if (document.getString("role").equals("admin")){             //terbaca sebagai admin
+                                                            //go admin activity
+                                                            Intent goAdmin = new Intent(LoginActivity.this, mainAdminActivity.class);
+                                                            startActivity(goAdmin);
+                                                            finish();
+                                                        } else if (document.getString("role").equals("user")){       //terbaca sebagai user
+                                                            //go user activity
+                                                            Intent goUser = new Intent(LoginActivity.this, mainUserActivity.class);
+                                                            startActivity(goUser);
+                                                            finish();
+                                                        }
                                                     } else {
-                                                        Log.d(TAG, "No such document");
+                                                        Log.d(TAG, "Error tidak ada data di akun ini");
                                                     }
                                                 } else {
-                                                    Log.d(TAG, "get failed with ", task.getException());
+                                                    Log.d(TAG, "Error : ", task.getException());
                                                 }
                                             }
                                         });
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.makeText(LoginActivity.this, "Login Gagal",
                                                 Toast.LENGTH_SHORT).show();
                                     }
 
@@ -104,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 }

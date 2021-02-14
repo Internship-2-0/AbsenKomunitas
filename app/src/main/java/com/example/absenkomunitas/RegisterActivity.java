@@ -80,7 +80,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         Map<String, Object> userData = new HashMap<>();
                                         userData.put("role", "user");
                                         userData.put("nama", register.getNama());
-                                        userData.put("password", register.getPassword());
                                         db.collection("users")
                                                 .document(user.getUid()).set(userData);
                                         Toast.makeText(RegisterActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();

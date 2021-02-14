@@ -27,24 +27,36 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //firebase
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
+    //database
+    private DocumentReference userRef;
+
+    //model
     private modelLogin login;
 
     private EditText txtEmail, txtPassword;
-    private String TAG;
+    private Button btnRegister;
+    private FloatingActionButton btnLogin;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //firebase
         mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        //model
+        login = new modelLogin();
 
         txtEmail = findViewById(R.id.txtEmail);
         txtPassword = findViewById(R.id.txtPassword);
 
-        Button btnRegister = findViewById(R.id.btnRegister);
+        btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,12 +65,12 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-        FloatingActionButton btnLogin = findViewById(R.id.fabLogin);
+
+        btnLogin = findViewById(R.id.fabLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                login = new modelLogin();
                 login.setEmail(txtEmail.getText().toString());
                 login.setPassword(txtPassword.getText().toString().trim());
 
@@ -67,45 +79,19 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (login.getPassword().equals("")){
                     Toast.makeText(LoginActivity.this, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 } else {
-                    mAuth.signInWithEmailAndPassword(login.getEmail(), login.getPassword())
+                    mAuth.signInWithEmailAndPassword(login.getEmail(), login.getPassword())                                 //sign in
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        DocumentReference userRef = db.collection("users").document(user.getUid());
-                                        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    DocumentSnapshot document = task.getResult();
-                                                    if (document.exists()) {
-                                                        if (document.getString("role").equals("admin")){             //terbaca sebagai admin
-                                                            //go admin activity
-                                                            Intent goAdmin = new Intent(LoginActivity.this, mainAdminActivity.class);
-                                                            startActivity(goAdmin);
-                                                            finish();
-                                                        } else if (document.getString("role").equals("user")){       //terbaca sebagai user
-                                                            //go user activity
-                                                            Intent goUser = new Intent(LoginActivity.this, mainUserActivity.class);
-                                                            startActivity(goUser);
-                                                            finish();
-                                                        }
-                                                    } else {
-                                                        Log.d(TAG, "Error tidak ada data di akun ini");
-                                                    }
-                                                } else {
-                                                    Log.d(TAG, "Error : ", task.getException());
-                                                }
-                                            }
-                                        });
+                                        userRef = db.collection("users").document(user.getUid());
+                                        ambilData(userRef);
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(LoginActivity.this, "Login Gagal",
+                                        Toast.makeText(LoginActivity.this, "Login Gagal : " + task.getException(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
-
                                 }
                             });
                 }
@@ -113,9 +99,45 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void ambilData(DocumentReference ref) {
+        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {    //ambil data dari database
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        if (document.getString("role").equals("admin")){             //terbaca sebagai admin
+                            //go admin activity
+                            Intent goAdmin = new Intent(LoginActivity.this, mainAdminActivity.class);
+                            startActivity(goAdmin);
+                            finish();
+                        } else if (document.getString("role").equals("user")){       //terbaca sebagai user
+                            //go user activity
+                            Intent goUser = new Intent(LoginActivity.this, mainUserActivity.class);
+                            startActivity(goUser);
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Error tidak ada data di akun ini", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+
+    private void updateUI(FirebaseUser currentUser){
+        if (currentUser != null){
+            userRef = db.collection("users").document(currentUser.getUid());
+            ambilData(userRef);
+        }
     }
 }

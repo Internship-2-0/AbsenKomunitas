@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AbsenKomunitas</string>
     <string name="email">Email</string>
     <string name="password">********</string>
-    <string name="todo">TODO</string>
-    <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="nama">Nama</string>

@@ -9,12 +9,6 @@ public class modelRegister {
     public modelRegister() {
     }
 
-    public modelRegister(String nama, String email, String password) {
-        this.nama = nama;
-        this.email = email;
-        this.password = password;
-    }
-
     public String getNama() {
         return nama;
     }

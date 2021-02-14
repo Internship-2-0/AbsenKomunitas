@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    android:background="@color/grey">
 
     <RelativeLayout
         android:id="@+id/v_input"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/shape_rectangle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:drawableLeft="@drawable/ic_username"
+            android:drawableStart="@drawable/ic_username"
             android:drawablePadding="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/txtEmail"
             android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"/>
+            android:hint="@string/email"
+            android:autofillHints=""
+            android:inputType="textEmailAddress" />
         <View
             android:id="@+id/vSeparator"
             android:layout_below="@+id/txtEmail"
@@ -32,14 +31,16 @@
             android:layout_height="0.5dp"/>
         <EditText
             android:id="@+id/txtNama"
-            android:drawableLeft="@drawable/ic_nama"
+            android:drawableStart="@drawable/ic_nama"
             android:drawablePadding="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:backgroundTint="@color/white"
             android:layout_below="@+id/vSeparator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama"/>
+            android:hint="@string/nama"
+            android:autofillHints=""
+            android:inputType="text" />
         <View
             android:id="@+id/vSeparator1"
             android:layout_below="@+id/txtNama"
@@ -48,15 +49,16 @@
             android:layout_height="0.5dp"/>
         <EditText
             android:id="@+id/txtPassword"
-            android:drawableLeft="@drawable/ic_password"
+            android:drawableStart="@drawable/ic_password"
             android:drawablePadding="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:backgroundTint="@color/white"
             android:layout_below="@+id/vSeparator1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:password="true"
-            android:hint="********"/>
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:autofillHints="" />
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -64,14 +66,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_check"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/todo" />
 
     <TextView
-        android:text="Register"
+        android:text="@string/register"
         android:textStyle="bold"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
@@ -84,8 +87,8 @@
         android:layout_marginBottom="180dp"
         android:layout_marginTop="50dp"
         android:textAllCaps="false"
-        android:text="Login"
-        android:layout_marginLeft="10dp"
+        android:text="@string/login"
+        android:layout_marginStart="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_rectangle"/>

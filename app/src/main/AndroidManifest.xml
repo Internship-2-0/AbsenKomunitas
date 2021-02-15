@@ -26,6 +26,7 @@
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".admin.mainAdminActivity"/>
         <activity android:name=".user.mainUserActivity"/>
+        <activity android:name=".user.mainUserQRActivity"/>
     </application>
 
 </manifest>

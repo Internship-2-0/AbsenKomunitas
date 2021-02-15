@@ -6,14 +6,13 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.absenkomunitas.LoginActivity;
 import com.example.absenkomunitas.R;
-import com.example.absenkomunitas.model.modelMainUserActivity;
+import com.example.absenkomunitas.model.modelUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class mainUserActivity extends AppCompatActivity {
 
@@ -33,7 +31,7 @@ public class mainUserActivity extends AppCompatActivity {
     private DocumentReference userRef;
 
     //model
-    private modelMainUserActivity userActivity;
+    private modelUser userModel;
 
     private TextView txtNama, txtRole;
     private CardView btnQR;
@@ -49,26 +47,26 @@ public class mainUserActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //model
-        userActivity = new modelMainUserActivity();
+        userModel = new modelUser();
 
         txtNama = findViewById(R.id.txtNama);
         txtRole = findViewById(R.id.txtRole);
 
         // database
         FirebaseUser user = mAuth.getCurrentUser();
-        userRef = db.collection("users").document(user.getUid());
+        userModel.setUid(user.getUid());
+
+        userRef = db.collection("users").document(userModel.getUid());
         userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document.exists()){
-                        userActivity.setNama(document.getString("nama"));
-                        userActivity.setRole(document.getString("role"));
+                    userModel.setNama(document.getString("nama"));
+                    userModel.setRole(document.getString("role"));
 
-                        txtNama.setText(userActivity.getNama());
-                        txtRole.setText("Role : " + userActivity.getRole());
-                    }
+                    txtNama.setText(userModel.getNama());
+                    txtRole.setText("Role : " + userModel.getRole());
                 }
             }
         });
@@ -80,6 +78,16 @@ public class mainUserActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent goLogin = new Intent(mainUserActivity.this, LoginActivity.class);
                 startActivity(goLogin);
+                finish();
+            }
+        });
+
+        btnQR = findViewById(R.id.btnQR);
+        btnQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goQRCode = new Intent(mainUserActivity.this, mainUserQRActivity.class);
+                startActivity(goQRCode);
                 finish();
             }
         });

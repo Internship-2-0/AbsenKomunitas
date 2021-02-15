@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey"
+    tools:context=".user.mainUserQRActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="247dp"
+        android:id="@+id/topPanel"/>
+
+    <LinearLayout
+        android:id="@+id/info"
+        android:background="@drawable/shape_user_background"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="100dp"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="300dp">
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/QRCode"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/btnBack"
+        android:text="back"
+        android:background="@drawable/shape_rectangle"
+        android:elevation="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

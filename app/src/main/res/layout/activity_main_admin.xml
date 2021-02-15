@@ -1,15 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.mainUserActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey"
+    tools:context=".admin.mainAdminActivity">
 
-    <TextView
-        android:id="@+id/txtNama"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="247dp"
+        android:id="@+id/topPanel"/>
+
+    <LinearLayout
+        android:id="@+id/info"
+        android:background="@drawable/shape_user_background"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="100dp"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="300dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selamat Datang"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txtNama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Nama"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/txtRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Role"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topPanel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_above="@+id/btnLogout">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnScan"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/img_scan"/>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan Code"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnHistory"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/img_history"/>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="History"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/btnLogout"
+        android:text="Logout"
+        android:background="@drawable/shape_rectangle"
+        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

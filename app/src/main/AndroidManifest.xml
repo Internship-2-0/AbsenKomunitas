@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".admin.mainAdminActivity"/>
+        <activity android:name=".admin.mainAdminHistoryActivity"/>
+        <activity android:name=".admin.mainAdminScanActivity"/>
         <activity android:name=".user.mainUserActivity"/>
         <activity android:name=".user.mainUserQRActivity"/>
     </application>

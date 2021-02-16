@@ -78,4 +78,12 @@ public class mainUserQRActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent goMainUser = new Intent(mainUserQRActivity.this, mainUserActivity.class);
+        startActivity(goMainUser);
+        finish();
+    }
 }

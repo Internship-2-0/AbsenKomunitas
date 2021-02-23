@@ -2,7 +2,6 @@ package com.example.absenkomunitas.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.absenkomunitas.LoginActivity;
 import com.example.absenkomunitas.R;
 import com.example.absenkomunitas.model.modelAdmin;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -78,7 +76,7 @@ public class mainAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent goLogin = new Intent(mainAdminActivity.this, LoginActivity.class);
+                Intent goLogin = new Intent(mainAdminActivity.this, LoginAdminActivity.class);
                 startActivity(goLogin);
                 finish();
             }
@@ -115,7 +113,7 @@ public class mainAdminActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser == null){
-            Intent goLogin = new Intent(mainAdminActivity.this, LoginActivity.class);
+            Intent goLogin = new Intent(mainAdminActivity.this, LoginAdminActivity.class);
             startActivity(goLogin);
             finish();
         }

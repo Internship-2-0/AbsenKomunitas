@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbsenKomunitas.noActionBar">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".admin.LoginAdminActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

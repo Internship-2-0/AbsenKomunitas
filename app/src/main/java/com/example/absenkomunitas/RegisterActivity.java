@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.absenkomunitas.admin.LoginAdminActivity;
 import com.example.absenkomunitas.model.modelRegister;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -25,9 +27,14 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    //firebase
     private FirebaseAuth mAuth;
 
+    //model
     private modelRegister register;
+
+    //database
+    DocumentReference userRef;
 
     private EditText txtEmail, txtPassword, txtNama;
     private String TAG;
@@ -48,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent goLogin = new Intent(RegisterActivity.this, LoginAdminActivity.class);
                 startActivity(goLogin);
                 finish();
             }
@@ -80,18 +87,21 @@ public class RegisterActivity extends AppCompatActivity {
                                         Map<String, Object> userData = new HashMap<>();
                                         userData.put("role", "user");
                                         userData.put("nama", register.getNama());
-                                        db.collection("users")
-                                                .document(user.getUid()).set(userData);
-                                        Toast.makeText(RegisterActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
-                                        Intent goLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        startActivity(goLogin);
-                                        finish();
+
+                                        userRef = db.collection("users").document(user.getUid());
+                                        userRef.set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(RegisterActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
+                                                Intent goLogin = new Intent(RegisterActivity.this, LoginAdminActivity.class);
+                                                startActivity(goLogin);
+                                                finish();
+                                            }
+                                        });
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Registrasi Gagal.",
                                                 Toast.LENGTH_SHORT).show();
                                     }
-
-                                    // ...
                                 }
                             });
                 }
@@ -103,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent goLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+        Intent goLogin = new Intent(RegisterActivity.this, LoginAdminActivity.class);
         startActivity(goLogin);
         finish();
     }

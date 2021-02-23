@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
+            android:maxLines="2"
             android:textStyle="bold"
             android:text="Nama"
             android:textSize="30dp" />
@@ -93,6 +94,7 @@
         android:layout_margin="10dp"
         android:id="@+id/btnLogout"
         android:text="Logout"
+        android:textAllCaps="false"
         android:background="@drawable/shape_rectangle"
         android:elevation="2dp"
         android:layout_width="wrap_content"

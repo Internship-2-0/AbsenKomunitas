@@ -4,6 +4,23 @@ public class modelUser {
     private String nama;
     private String role;
     private String Uid;
+    private String timeStamp;
+
+    public modelUser() {
+    }
+
+    public modelUser(String nama, String timeStamp) {
+        this.nama = nama;
+        this.timeStamp = timeStamp;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
     public String getNama() {
         return nama;

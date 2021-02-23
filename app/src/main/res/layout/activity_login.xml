@@ -1,77 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/v_input"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/shape_rectangle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:drawableStart="@drawable/ic_username"
-            android:inputType="textEmailAddress"
-            android:drawablePadding="10dp"
-            android:layout_marginStart="5dp"
-            android:id="@+id/txtEmail"
-            android:backgroundTint="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:autofillHints="" />
-        <View
-            android:id="@+id/vSeparator"
-            android:layout_below="@+id/txtEmail"
-            android:background="@color/grey"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-        <EditText
-            android:id="@+id/txtPassword"
-            android:drawableStart="@drawable/ic_password"
-            android:drawablePadding="10dp"
-            android:layout_marginStart="5dp"
-            android:backgroundTint="@color/white"
-            android:layout_below="@+id/vSeparator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:autofillHints="" />
-    </RelativeLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabLogin"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_login"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp"
-        android:contentDescription="@string/todo" />
-
-    <TextView
-        android:text="@string/login"
-        android:textStyle="bold"
-        android:textSize="40sp"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/v_input"/>
+        android:gravity="center"
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="180dp"
-        android:textAllCaps="false"
-        android:text="@string/register"
-        android:layout_marginStart="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="40dp"
+            android:layout_marginBottom="50dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnAdmin"
+            android:text="Admin"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnUser"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="User"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

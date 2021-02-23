@@ -1,14 +1,14 @@
 package com.example.absenkomunitas.model;
 
-public class modelLogin {
+public class modelLoginAdmin {
     private String email;
     private String password;
     private String nama;
 
-    public modelLogin() {
+    public modelLoginAdmin() {
     }
 
-    public modelLogin(String email, String password) {
+    public modelLoginAdmin(String email, String password) {
         this.email = email;
         this.password = password;
     }

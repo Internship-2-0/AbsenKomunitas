@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.absenkomunitas.LoginActivity;
+import com.example.absenkomunitas.admin.LoginAdminActivity;
 import com.example.absenkomunitas.R;
 import com.example.absenkomunitas.model.modelUser;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,7 +76,7 @@ public class mainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent goLogin = new Intent(mainUserActivity.this, LoginActivity.class);
+                Intent goLogin = new Intent(mainUserActivity.this, LoginAdminActivity.class);
                 startActivity(goLogin);
                 finish();
             }
@@ -103,7 +103,7 @@ public class mainUserActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser == null){
-            Intent goLogin = new Intent(mainUserActivity.this, LoginActivity.class);
+            Intent goLogin = new Intent(mainUserActivity.this, LoginAdminActivity.class);
             startActivity(goLogin);
             finish();
         }

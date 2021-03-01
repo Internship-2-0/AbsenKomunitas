@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grey"
-    tools:context=".user.mainUserQRActivity">
+    tools:context=".user.MainUserQRActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -29,10 +29,19 @@
             android:textColor="@color/white"
             android:textSize="20dp" />
 
+        <TextView
+            android:id="@+id/txtInfo"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perlihatkan QR Code ini kepada admin untuk melakukan absensi"
+            android:textColor="@color/white"/>
+
     </LinearLayout>
 
     <ImageView
-        android:layout_centerInParent="true"
+        android:layout_below="@id/info"
+        android:layout_centerHorizontal="true"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:id="@+id/QRCode"

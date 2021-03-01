@@ -20,19 +20,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbsenKomunitas.noActionBar">
-        <activity android:name=".admin.LoginAdminActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".admin.LoginAdminActivity"/>
+        <activity android:name=".user.LoginUserActivity"/>
         <activity android:name=".RegisterActivity"/>
-        <activity android:name=".admin.mainAdminActivity"/>
-        <activity android:name=".admin.mainAdminHistoryActivity"/>
-        <activity android:name=".admin.mainAdminScanActivity"/>
-        <activity android:name=".user.mainUserActivity"/>
-        <activity android:name=".user.mainUserQRActivity"/>
+        <activity android:name=".admin.MainAdminActivity"/>
+        <activity android:name=".admin.MainAdminHistoryActivity"/>
+        <activity android:name=".admin.MainAdminScanActivity"/>
+        <activity android:name=".user.MainUserActivity"/>
+        <activity android:name=".user.MainUserQRActivity"/>
     </application>
 
 </manifest>

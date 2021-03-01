@@ -1,4 +1,4 @@
-package com.example.absenkomunitas;
+package com.example.absenkomunitas.admin;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.absenkomunitas.model.modelUser;
+import com.example.absenkomunitas.R;
+import com.example.absenkomunitas.model.ModelUser;
 
 import java.util.ArrayList;
 
 public class
 HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
-    private ArrayList<modelUser> listUser;
+    private ArrayList<ModelUser> listUser;
 
-    public HistoryAdapter(ArrayList<modelUser> listUser){
+    public HistoryAdapter(ArrayList<ModelUser> listUser){
         this.listUser = listUser;
     }
 

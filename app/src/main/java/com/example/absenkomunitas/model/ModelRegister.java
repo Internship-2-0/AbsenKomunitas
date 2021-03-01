@@ -1,12 +1,30 @@
 package com.example.absenkomunitas.model;
 
-public class modelRegister {
+public class ModelRegister {
 
     private String nama;
     private String email;
     private String password;
+    private String komunitas;
+    private String uid;
 
-    public modelRegister() {
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getKomunitas() {
+        return komunitas;
+    }
+
+    public void setKomunitas(String komunitas) {
+        this.komunitas = komunitas;
+    }
+
+    public ModelRegister() {
     }
 
     public String getNama() {

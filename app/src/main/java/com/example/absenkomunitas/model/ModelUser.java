@@ -1,15 +1,15 @@
 package com.example.absenkomunitas.model;
 
-public class modelUser {
+public class ModelUser {
     private String nama;
     private String role;
     private String Uid;
     private String timeStamp;
 
-    public modelUser() {
+    public ModelUser() {
     }
 
-    public modelUser(String nama, String timeStamp) {
+    public ModelUser(String nama, String timeStamp) {
         this.nama = nama;
         this.timeStamp = timeStamp;
     }

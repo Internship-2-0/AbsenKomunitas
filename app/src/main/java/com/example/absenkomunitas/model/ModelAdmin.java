@@ -1,6 +1,6 @@
 package com.example.absenkomunitas.model;
 
-public class modelAdmin {
+public class ModelAdmin {
 
     private String nama;
     private String Uid;

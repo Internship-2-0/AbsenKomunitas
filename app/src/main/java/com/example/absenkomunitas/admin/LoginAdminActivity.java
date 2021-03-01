@@ -11,10 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.absenkomunitas.LoadingDialog;
+import com.example.absenkomunitas.LoginActivity;
 import com.example.absenkomunitas.R;
-import com.example.absenkomunitas.RegisterActivity;
-import com.example.absenkomunitas.model.modelLoginAdmin;
+import com.example.absenkomunitas.model.ModelLoginAdmin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,13 +34,10 @@ public class LoginAdminActivity extends AppCompatActivity {
     private DocumentReference userRef;
 
     //model
-    private modelLoginAdmin login;
-
-    //loading
-    private LoadingDialog loading;
+    private ModelLoginAdmin login;
 
     private EditText txtEmail, txtPassword;
-    private Button btnRegister;
+    private Button btnBack;
     private FloatingActionButton btnLogin;
 
     @Override
@@ -54,19 +50,16 @@ public class LoginAdminActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //model
-        login = new modelLoginAdmin();
-
-        //loading
-        loading = new LoadingDialog(LoginAdminActivity.this);
+        login = new ModelLoginAdmin();
 
         txtEmail = findViewById(R.id.txtEmail);
         txtPassword = findViewById(R.id.txtPassword);
 
-        btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goRegister = new Intent(LoginAdminActivity.this, RegisterActivity.class);
+                Intent goRegister = new Intent(LoginAdminActivity.this, LoginActivity.class);
                 startActivity(goRegister);
                 finish();
             }
@@ -94,10 +87,10 @@ public class LoginAdminActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         userRef = db.collection("users").document(user.getUid());
-                                        ambilData(userRef);
+                                        ambilData(userRef, user);
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(LoginAdminActivity.this, "Login Gagal : " + task.getException(),
+                                        Toast.makeText(LoginAdminActivity.this, "Login Gagal : Email dan Password salah",
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -107,7 +100,7 @@ public class LoginAdminActivity extends AppCompatActivity {
         });
     }
 
-    public void ambilData(DocumentReference ref) {
+    public void ambilData(DocumentReference ref, FirebaseUser user) {
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {    //ambil data dari database
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -115,9 +108,7 @@ public class LoginAdminActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {             //terbaca sebagai admin
                         //go admin activity
-                        Intent goAdmin = new Intent(LoginAdminActivity.this, mainAdminActivity.class);
-                        startActivity(goAdmin);
-                        finish();
+                        updateUI(user);
                     } else {
                         Toast.makeText(LoginAdminActivity.this, "Error tidak ada data di akun ini", Toast.LENGTH_SHORT).show();
                     }
@@ -128,17 +119,21 @@ public class LoginAdminActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-
     private void updateUI(FirebaseUser currentUser){
         if (currentUser != null){
-            userRef = db.collection("users").document(currentUser.getUid());
-            ambilData(userRef);
+            Intent goAdmin = new Intent(LoginAdminActivity.this, MainAdminActivity.class);
+            startActivity(goAdmin);
+            finish();
+        } else {
+            Intent goLogin = new Intent(LoginAdminActivity.this, LoginActivity.class);
+            startActivity(goLogin);
+            finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        updateUI(null);
     }
 }

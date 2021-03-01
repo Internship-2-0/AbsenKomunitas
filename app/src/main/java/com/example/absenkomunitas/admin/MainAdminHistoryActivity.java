@@ -2,13 +2,9 @@ package com.example.absenkomunitas.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,11 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.absenkomunitas.HistoryAdapter;
 import com.example.absenkomunitas.R;
-import com.example.absenkomunitas.model.modelUser;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.example.absenkomunitas.model.ModelUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,13 +23,10 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import io.grpc.internal.LogExceptionRunnable;
-
-public class mainAdminHistoryActivity extends AppCompatActivity {
+public class MainAdminHistoryActivity extends AppCompatActivity {
 
     private static final String TAG = null;
     //firebase
@@ -45,12 +35,12 @@ public class mainAdminHistoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
-    private ArrayList<modelUser> userArrayList;
+    private ArrayList<ModelUser> userArrayList;
 
 //    private FirestoreRecyclerAdapter adapter;
 
     //model
-    modelUser userModel;
+    ModelUser userModel;
 
     private Button btnBack;
 
@@ -68,7 +58,7 @@ public class mainAdminHistoryActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler);
         historyAdapter = new HistoryAdapter(userArrayList);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mainAdminHistoryActivity.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainAdminHistoryActivity.this);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(historyAdapter);
@@ -104,7 +94,7 @@ public class mainAdminHistoryActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goMainAdmin = new Intent(mainAdminHistoryActivity.this, mainAdminActivity.class);
+                Intent goMainAdmin = new Intent(MainAdminHistoryActivity.this, MainAdminActivity.class);
                 startActivity(goMainAdmin);
                 finish();
             }
@@ -115,7 +105,7 @@ public class mainAdminHistoryActivity extends AppCompatActivity {
     public void getData() {
         SimpleDateFormat timeStampFormat = new SimpleDateFormat("h:mm a dd-MM-yyyy");
         userArrayList = new ArrayList<>();
-        userModel = new modelUser();
+        userModel = new ModelUser();
         db.collection("history").orderBy("timestamp", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -124,12 +114,12 @@ public class mainAdminHistoryActivity extends AppCompatActivity {
                         String time = timeStampFormat.format(document.getDate("timestamp"));
                         userModel.setNama(document.getString("nama"));
                         userModel.setTimeStamp(time);
-                        userArrayList.add(new modelUser(document.getString("nama"), time));
+                        userArrayList.add(new ModelUser(document.getString("nama"), time));
                         Log.e(TAG, "onComplete: " + userModel.getNama() + " " + userModel.getTimeStamp());
                         historyAdapter.notifyDataSetChanged();
                     }
                 } else {
-                    Toast.makeText(mainAdminHistoryActivity.this, "Tidak ada History", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainAdminHistoryActivity.this, "Tidak ada History", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -138,7 +128,7 @@ public class mainAdminHistoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent goMainAdmin = new Intent(mainAdminHistoryActivity.this, mainAdminActivity.class);
+        Intent goMainAdmin = new Intent(MainAdminHistoryActivity.this, MainAdminActivity.class);
         ;
         startActivity(goMainAdmin);
         finish();

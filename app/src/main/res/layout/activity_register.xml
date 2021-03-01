@@ -1,96 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey"
+    tools:context=".RegisterActivity">
 
-    <RelativeLayout
-        android:id="@+id/v_input"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/shape_rectangle"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:drawableStart="@drawable/ic_username"
-            android:drawablePadding="10dp"
-            android:layout_marginStart="5dp"
-            android:id="@+id/txtEmail"
-            android:backgroundTint="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:autofillHints=""
-            android:inputType="textEmailAddress" />
-        <View
-            android:id="@+id/vSeparator"
-            android:layout_below="@+id/txtEmail"
-            android:background="@color/grey"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-        <EditText
-            android:id="@+id/txtNama"
-            android:drawableStart="@drawable/ic_nama"
-            android:drawablePadding="10dp"
-            android:layout_marginStart="5dp"
-            android:backgroundTint="@color/white"
-            android:layout_below="@+id/vSeparator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nama"
-            android:autofillHints=""
-            android:inputType="text" />
-        <View
-            android:id="@+id/vSeparator1"
-            android:layout_below="@+id/txtNama"
-            android:background="@color/grey"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-        <EditText
-            android:id="@+id/txtPassword"
-            android:drawableStart="@drawable/ic_password"
-            android:drawablePadding="10dp"
-            android:layout_marginStart="5dp"
-            android:backgroundTint="@color/white"
-            android:layout_below="@+id/vSeparator1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:autofillHints="" />
-    </RelativeLayout>
+        android:layout_height="247dp"
+        android:id="@+id/topPanel"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_check"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp"
-        android:contentDescription="@string/todo" />
+    <LinearLayout
+        android:id="@+id/info"
+        android:background="@drawable/shape_user_background"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="100dp"
+        android:paddingLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="200dp">
 
-    <TextView
-        android:text="@string/register"
-        android:textStyle="bold"
-        android:textSize="40sp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan Register"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan QR Code Register untuk melakukan Registrasi"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:layout_below="@+id/info"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/v_input"/>
+        android:layout_centerInParent="true"
+        android:id="@+id/scanner_view"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        app:autoFocusButtonColor="@android:color/white"
+        app:autoFocusButtonVisible="false"
+        app:flashButtonColor="@android:color/white"
+        app:flashButtonVisible="false"
+        app:frameColor="@android:color/white"
+        app:frameCornersSize="50dp"
+        app:frameCornersRadius="0dp"
+        app:frameAspectRatioWidth="1"
+        app:frameAspectRatioHeight="1"
+        app:frameSize="0.75"
+        app:frameThickness="2dp"
+        app:maskColor="#77000000"/>
 
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="180dp"
-        android:layout_marginTop="50dp"
+        android:layout_margin="10dp"
+        android:id="@+id/btnBack"
+        android:text="Back"
         android:textAllCaps="false"
-        android:text="@string/login"
-        android:layout_marginStart="10dp"
+        android:background="@drawable/shape_rectangle"
+        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

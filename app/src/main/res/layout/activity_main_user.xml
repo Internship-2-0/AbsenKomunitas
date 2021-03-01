@@ -46,6 +46,14 @@
             android:textColor="@color/white"
             android:textSize="15dp" />
 
+        <TextView
+            android:id="@+id/txtKomunitas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Komunitas"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
     </LinearLayout>
 
     <GridLayout

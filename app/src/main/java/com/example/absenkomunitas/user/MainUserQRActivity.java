@@ -2,27 +2,25 @@ package com.example.absenkomunitas.user;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.absenkomunitas.R;
-import com.example.absenkomunitas.model.modelUser;
+import com.example.absenkomunitas.model.ModelUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.zxing.WriterException;
+
+import java.util.Calendar;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class mainUserQRActivity extends AppCompatActivity {
+public class MainUserQRActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private QRGEncoder qrgEncoder;
@@ -30,7 +28,7 @@ public class mainUserQRActivity extends AppCompatActivity {
     private Button btnBack;
     private ImageView QRCode;
 
-    private modelUser userModel;
+    private ModelUser userModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public class mainUserQRActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_qr_generator);
         mAuth = FirebaseAuth.getInstance();
 
-        userModel = new modelUser();
+        userModel = new ModelUser();
 
         QRCode = findViewById(R.id.QRCode);
 
@@ -47,7 +45,7 @@ public class mainUserQRActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goUserMainActivity = new Intent(mainUserQRActivity.this, mainUserActivity.class);
+                Intent goUserMainActivity = new Intent(MainUserQRActivity.this, MainUserActivity.class);
                 startActivity(goUserMainActivity);
                 finish();
             }
@@ -56,7 +54,7 @@ public class mainUserQRActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         userModel.setUid(user.getUid());
 
-        qrgEncoder = new QRGEncoder(userModel.getUid(), null, QRGContents.Type.TEXT, 200);
+        qrgEncoder = new QRGEncoder(userModel.getUid() + "*" + Calendar.getInstance().getTime(), null, QRGContents.Type.TEXT, 200);
         try {
             Bitmap qrBits = qrgEncoder.getBitmap();
             QRCode.setImageBitmap(qrBits);
@@ -68,7 +66,7 @@ public class mainUserQRActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent goMainUser = new Intent(mainUserQRActivity.this, mainUserActivity.class);
+        Intent goMainUser = new Intent(MainUserQRActivity.this, MainUserActivity.class);
         startActivity(goMainUser);
         finish();
     }

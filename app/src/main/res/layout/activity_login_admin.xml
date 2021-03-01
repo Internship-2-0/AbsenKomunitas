@@ -54,7 +54,7 @@
         android:contentDescription="@string/todo" />
 
     <TextView
-        android:text="@string/login"
+        android:text="Login Admin"
         android:textStyle="bold"
         android:textSize="40sp"
         android:layout_centerHorizontal="true"
@@ -64,11 +64,11 @@
         android:layout_above="@+id/v_input"/>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnBack"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="180dp"
         android:textAllCaps="false"
-        android:text="@string/register"
+        android:text="Back"
         android:layout_marginStart="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

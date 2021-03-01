@@ -1,8 +1,4 @@
-package com.example.absenkomunitas.user;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+package com.example.absenkomunitas.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.absenkomunitas.admin.LoginAdminActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import com.example.absenkomunitas.LoginActivity;
 import com.example.absenkomunitas.R;
-import com.example.absenkomunitas.model.modelUser;
+import com.example.absenkomunitas.model.ModelAdmin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class mainUserActivity extends AppCompatActivity {
+public class MainAdminActivity extends AppCompatActivity {
 
     //firebase
     private FirebaseAuth mAuth;
@@ -31,42 +32,42 @@ public class mainUserActivity extends AppCompatActivity {
     private DocumentReference userRef;
 
     //model
-    private modelUser userModel;
+    private ModelAdmin adminModel;
 
     private TextView txtNama, txtRole;
-    private CardView btnQR;
+    private CardView btnScan, btnHistory;
     private Button btnLogout;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_user);
+        setContentView(R.layout.activity_main_admin);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         //model
-        userModel = new modelUser();
+        adminModel = new ModelAdmin();
 
         txtNama = findViewById(R.id.txtNama);
         txtRole = findViewById(R.id.txtRole);
 
-        // database
+        //database
         FirebaseUser user = mAuth.getCurrentUser();
-        userModel.setUid(user.getUid());
+        adminModel.setUid(user.getUid());
 
-        userRef = db.collection("users").document(userModel.getUid());
+        userRef = db.collection("users").document(adminModel.getUid());
         userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
+                if (task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
-                    userModel.setNama(document.getString("nama"));
-                    userModel.setRole(document.getString("role"));
+                    adminModel.setNama(document.getString("nama"));
+                    adminModel.setRole(document.getString("role"));
 
-                    txtNama.setText(userModel.getNama());
-                    txtRole.setText("Role : " + userModel.getRole());
+                    txtNama.setText(adminModel.getNama());
+                    txtRole.setText("Role : " + adminModel.getRole());
                 }
             }
         });
@@ -76,18 +77,26 @@ public class mainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent goLogin = new Intent(mainUserActivity.this, LoginAdminActivity.class);
-                startActivity(goLogin);
+                updateUI(null);
+            }
+        });
+
+        btnScan = findViewById(R.id.btnScan);
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goScan = new Intent(MainAdminActivity.this, MainAdminScanActivity.class);
+                startActivity(goScan);
                 finish();
             }
         });
 
-        btnQR = findViewById(R.id.btnQR);
-        btnQR.setOnClickListener(new View.OnClickListener() {
+        btnHistory = findViewById(R.id.btnHistory);
+        btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goQRCode = new Intent(mainUserActivity.this, mainUserQRActivity.class);
-                startActivity(goQRCode);
+                Intent goHistory = new Intent(MainAdminActivity.this, MainAdminHistoryActivity.class);
+                startActivity(goHistory);
                 finish();
             }
         });
@@ -103,7 +112,7 @@ public class mainUserActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser == null){
-            Intent goLogin = new Intent(mainUserActivity.this, LoginAdminActivity.class);
+            Intent goLogin = new Intent(MainAdminActivity.this, LoginActivity.class);
             startActivity(goLogin);
             finish();
         }

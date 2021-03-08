@@ -35,6 +35,7 @@ HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     public void onBindViewHolder(@NonNull HistoryAdapter.HistoryViewHolder holder, int position) {
         holder.txtNama.setText(listUser.get(position).getNama());
         holder.txtTimeStamp.setText(listUser.get(position).getTimeStamp());
+        holder.txtKomunitas.setText(listUser.get(position).getKomunitas());
     }
 
     @Override
@@ -44,12 +45,13 @@ HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtNama, txtTimeStamp;
+        private TextView txtNama, txtTimeStamp, txtKomunitas;
 
         public HistoryViewHolder (View view){
             super(view);
             txtNama = view.findViewById(R.id.txtNama);
             txtTimeStamp = view.findViewById(R.id.txtTimeStamp);
+            txtKomunitas = view.findViewById(R.id.txtKomunitas);
         }
     }
 }

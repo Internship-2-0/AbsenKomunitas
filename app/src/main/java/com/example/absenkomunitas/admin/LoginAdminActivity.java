@@ -1,5 +1,6 @@
 package com.example.absenkomunitas.admin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,7 @@ public class LoginAdminActivity extends AppCompatActivity {
     private EditText txtEmail, txtPassword;
     private Button btnBack;
     private FloatingActionButton btnLogin;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,15 +71,15 @@ public class LoginAdminActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                loading.startLoadingDialog();
-
+                showProgress();
                 login.setEmail(txtEmail.getText().toString());
                 login.setPassword(txtPassword.getText().toString().trim());
 
                 if (login.getEmail().equals("")){
+                    dismissProgress();
                     Toast.makeText(LoginAdminActivity.this, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 } else if (login.getPassword().equals("")){
+                    dismissProgress();
                     Toast.makeText(LoginAdminActivity.this, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 } else {
                     mAuth.signInWithEmailAndPassword(login.getEmail(), login.getPassword())                                 //sign in
@@ -90,6 +92,7 @@ public class LoginAdminActivity extends AppCompatActivity {
                                         ambilData(userRef, user);
                                     } else {
                                         // If sign in fails, display a message to the user.
+                                        dismissProgress();
                                         Toast.makeText(LoginAdminActivity.this, "Login Gagal : Email dan Password salah",
                                                 Toast.LENGTH_SHORT).show();
                                     }
@@ -98,6 +101,18 @@ public class LoginAdminActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    void showProgress(){
+        progressDialog = new ProgressDialog(LoginAdminActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
+
+    void dismissProgress(){
+        progressDialog.dismiss();
     }
 
     public void ambilData(DocumentReference ref, FirebaseUser user) {
@@ -111,9 +126,11 @@ public class LoginAdminActivity extends AppCompatActivity {
                         updateUI(user);
                     } else {
                         Toast.makeText(LoginAdminActivity.this, "Error tidak ada data di akun ini", Toast.LENGTH_SHORT).show();
+                        dismissProgress();
                     }
                 } else {
                     Toast.makeText(LoginAdminActivity.this, "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
+                    dismissProgress();
                 }
             }
         });

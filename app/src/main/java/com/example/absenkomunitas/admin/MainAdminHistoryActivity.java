@@ -37,8 +37,6 @@ public class MainAdminHistoryActivity extends AppCompatActivity {
     private HistoryAdapter historyAdapter;
     private ArrayList<ModelUser> userArrayList;
 
-//    private FirestoreRecyclerAdapter adapter;
-
     //model
     ModelUser userModel;
 
@@ -63,33 +61,6 @@ public class MainAdminHistoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(historyAdapter);
 
-//        //query
-//        Query query = db.collection("history");
-//
-//        //recylerOptions
-//        FirestoreRecyclerOptions<modelUser> options = new FirestoreRecyclerOptions.Builder<modelUser>()
-//                .setQuery(query, modelUser.class)
-//                .build();
-//
-//        adapter = new FirestoreRecyclerAdapter<modelUser, userViewHolder>(options) {
-//            @NonNull
-//            @Override
-//            public userViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history, parent, false);
-//                return new userViewHolder(view);
-//            }
-//
-//            @Override
-//            protected void onBindViewHolder(@NonNull userViewHolder holder, int position, @NonNull modelUser model) {
-//                holder.txtNama.setText(model.getNama());
-//                holder.txtTimeStamp.setText(model.getTimeStamp());
-//            }
-//        };
-//
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
-
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +84,9 @@ public class MainAdminHistoryActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String time = timeStampFormat.format(document.getDate("timestamp"));
                         userModel.setNama(document.getString("nama"));
+                        userModel.setKomunitas(document.getString("komunitas"));
                         userModel.setTimeStamp(time);
-                        userArrayList.add(new ModelUser(document.getString("nama"), time));
+                        userArrayList.add(new ModelUser(userModel.getNama(), userModel.getTimeStamp(), userModel.getKomunitas()));
                         Log.e(TAG, "onComplete: " + userModel.getNama() + " " + userModel.getTimeStamp());
                         historyAdapter.notifyDataSetChanged();
                     }
@@ -133,29 +105,4 @@ public class MainAdminHistoryActivity extends AppCompatActivity {
         startActivity(goMainAdmin);
         finish();
     }
-
-//    private class userViewHolder extends RecyclerView.ViewHolder {
-//
-//        private TextView txtNama, txtTimeStamp;
-//
-//        public userViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            txtNama = itemView.findViewById(R.id.txtNama);
-//            txtTimeStamp = itemView.findViewById(R.id.txtTimeStamp);
-//
-//        }
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        adapter.stopListening();
-//    }
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        adapter.startListening();
-//    }
 }

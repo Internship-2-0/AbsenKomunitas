@@ -1,5 +1,6 @@
 package com.example.absenkomunitas.user;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,8 +39,9 @@ public class LoginUserActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
-    Button btnBack, btnRegister, btnLogin;
+    private Button btnBack, btnRegister, btnLogin;
     private String TAG;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class LoginUserActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgress();
                 signIn();
             }
         });
@@ -84,6 +87,18 @@ public class LoginUserActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void showProgress(){
+        progressDialog = new ProgressDialog(LoginUserActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
+
+    void dismissProgress(){
+        progressDialog.dismiss();
     }
 
     private void signIn() {
@@ -124,12 +139,13 @@ public class LoginUserActivity extends AppCompatActivity {
                             db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.getResult().getString("nama") != null){
+                                    if (task.getResult().getString("email") != null){
                                         updateUI(user);
                                     } else {
                                         user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
+                                                dismissProgress();
                                                 Toast.makeText(LoginUserActivity.this, "Tidak ada data user, silahkan Register", Toast.LENGTH_SHORT).show();
                                             }
                                         });
@@ -137,6 +153,7 @@ public class LoginUserActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
+                            dismissProgress();
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginUserActivity.this, "Sign-in Error : " + task.getException(), Toast.LENGTH_SHORT).show();
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -153,6 +170,7 @@ public class LoginUserActivity extends AppCompatActivity {
             startActivity(goUser);
             finish();
         } else {
+            dismissProgress();
             Toast.makeText(this, "Sign-in Gagal", Toast.LENGTH_SHORT).show();
         }
     }

@@ -7,9 +7,9 @@
     android:background="@color/grey">
 
     <ImageView
+        android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="247dp"
-        android:id="@+id/topPanel"/>
+        android:layout_height="270dp" />
 
     <LinearLayout
         android:id="@+id/info"

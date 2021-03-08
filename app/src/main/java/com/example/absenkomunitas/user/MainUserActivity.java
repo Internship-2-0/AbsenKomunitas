@@ -65,9 +65,11 @@ public class MainUserActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     userModel.setNama(document.getString("nama"));
+                    userModel.setKomunitas(document.getString("komunitas"));
                     userModel.setRole(document.getString("role"));
 
                     txtNama.setText(userModel.getNama());
+                    txtKomunitas.setText("Komunitas : \n\t" + userModel.getKomunitas());
                     txtRole.setText("Role : " + userModel.getRole());
                 }
             }

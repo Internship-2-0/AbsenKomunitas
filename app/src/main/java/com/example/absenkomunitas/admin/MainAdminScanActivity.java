@@ -81,20 +81,26 @@ public class MainAdminScanActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
-                                    userModel.setNama(document.getString("nama"));
-                                    userModel.setUid(userModel.getUid());
-
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Map<String, Object> userData = new HashMap<>();
-                                    userData.put("Uid",userModel.getUid());
-                                    userData.put("nama", userModel.getNama());
-                                    userData.put("timestamp", Calendar.getInstance().getTime());
-                                    userData.put("komunitas", strResult[1]);
-
-                                    db.collection("history").add(userData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    db.collection("users").document(userModel.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(MainAdminScanActivity.this, userModel.getNama() + " Berhasil di Absen", Toast.LENGTH_SHORT).show();
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot data = task.getResult();
+                                            userModel.setKomunitas(data.getString("komunitas"));
+                                            userModel.setNama(document.getString("nama"));
+
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            Map<String, Object> userData = new HashMap<>();
+                                            userData.put("Uid",userModel.getUid());
+                                            userData.put("nama", userModel.getNama());
+                                            userData.put("timestamp", Calendar.getInstance().getTime());
+                                            userData.put("komunitas", userModel.getKomunitas());
+
+                                            db.collection("history").add(userData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Toast.makeText(MainAdminScanActivity.this, userModel.getNama() + " Berhasil di Absen", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                         }
                                     });
                                 }

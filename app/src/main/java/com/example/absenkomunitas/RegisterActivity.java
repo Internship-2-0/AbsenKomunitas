@@ -110,37 +110,10 @@ public class RegisterActivity extends AppCompatActivity {
                         String code = result.getText();
                         String[] strResult = code.split("\\*");
                         if (strResult.length == 2){
-                            showProgress();
                             registerModel.setNama(strResult[0]);
                             registerModel.setKomunitas(strResult[1]);
-                            Map<String, Object> userData = new HashMap<>();
-                            userData.put("nama", registerModel.getNama());
-                            userData.put("role", "user");
-                            userData.put("email", registerModel.getEmail());
-                            userData.put("komunitas", registerModel.getKomunitas());
-                            AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
-                            dismissProgress();
-                            dialog.setMessage("Apakah data berikut benar ? \nNama : " + registerModel.getNama() + "\nKomunitas : " + registerModel.getKomunitas())
-                                    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            db.collection("users").document(registerModel.getUid()).set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    Toast.makeText(RegisterActivity.this, "Akun berhasil dibuat", Toast.LENGTH_SHORT).show();
-                                                    signIn();
-                                                    showProgress();
-                                                }
-                                            });
-                                        }
-                                    })
-                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            dialog.show();
+                            showProgress();
+                            signIn();
                         } else {
                             Toast.makeText(RegisterActivity.this, "QR Code tidak valid", Toast.LENGTH_SHORT).show();
                         }
@@ -211,7 +184,34 @@ public class RegisterActivity extends AppCompatActivity {
                                     for (QueryDocumentSnapshot document : task.getResult()){
                                         db.collection("users").document(document.getId()).delete();
                                     }
-                                    updateUI(user);
+                                    Map<String, Object> userData = new HashMap<>();
+                                    userData.put("nama", registerModel.getNama());
+                                    userData.put("role", "user");
+                                    userData.put("email", registerModel.getEmail());
+                                    userData.put("komunitas", registerModel.getKomunitas());
+                                    AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+                                    dismissProgress();
+                                    dialog.setMessage("Apakah data berikut benar ? \nNama : " + registerModel.getNama() + "\nKomunitas : " + registerModel.getKomunitas())
+                                            .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    db.collection("users").document(registerModel.getUid()).set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            updateUI(user);
+                                                            Toast.makeText(RegisterActivity.this, "Akun berhasil dibuat", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            })
+                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                    user.delete();
+                                                }
+                                            });
+                                    dialog.show();
                                 }
                             });
                         } else {
